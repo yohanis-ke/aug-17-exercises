@@ -13,7 +13,6 @@
             results: [
                       {
                         id: "film/2017/jul/25/daniel-craig-judi-dench-and-idris-elba-toronto-film-festival",
-                        views: 0,
                         type: "article",
                         sectionId: "film",
                         sectionName: "Film",
@@ -25,7 +24,6 @@
                       },
                       {
                         id: "us-news/2017/jun/27/trump-name-scrubbed-toronto-canada-hotel",
-                        views: 0,
                         type: "article",
                         sectionId: "us-news",
                         sectionName: "US news",
@@ -37,7 +35,6 @@
                       },
                       {
                         id: "football/blog/2017/may/08/toronto-fc-mls-michael-bradley-seattle",
-                        views: 0,
                         type: "article",
                         sectionId: "football",
                         sectionName: "Football",
@@ -49,7 +46,6 @@
                       },
                       {
                         id: "world/2017/apr/20/toronto-foreign-tax-homes-housing-market-canada",
-                        views: 0,
                         type: "article",
                         sectionId: "world",
                         sectionName: "World news",
@@ -61,7 +57,6 @@
                       },
                       {
                         id: "discover-cool-canada/2016/sep/16/10-of-the-best-hotels-in-toronto",
-                        views: 0,
                         type: "article",
                         sectionId: "discover-cool-canada",
                         sectionName: "Discover cool Canada",
@@ -73,7 +68,6 @@
                       },
                       {
                         id: "discover-cool-canada/2016/sep/16/10-toronto-restaurants-to-suit-every-budget",
-                        views: 0,
                         type: "article",
                         sectionId: "discover-cool-canada",
                         sectionName: "Discover cool Canada",
@@ -85,7 +79,6 @@
                       },
                       {
                         id: "discover-cool-canada/2016/sep/16/10-destinations-near-toronto-not-to-miss",
-                        views: 0,
                         type: "article",
                         sectionId: "discover-cool-canada",
                         sectionName: "Discover cool Canada",
@@ -97,7 +90,6 @@
                       },
                       {
                         id: "sport/blog/2017/feb/24/toronto-wolfpack-challenge-cup-debut-halifax-rugby-league",
-                        views: 0,
                         type: "article",
                         sectionId: "sport",
                         sectionName: "Sport",
@@ -109,7 +101,6 @@
                       } ,
                       {
                         id: "sport/2017/feb/25/toronto-wolfpack-challenge-cup-debut-siddal",
-                        views: 0,
                         type: "article",
                         sectionId: "sport",
                         sectionName: "Sport",
@@ -121,7 +112,6 @@
                       },
                       {
                         id: "tv-and-radio/2017/aug/29/margaret-atwood-you-have-been-warned-imagine-review",
-                        views: 0,
                         type: "article",
                         sectionId: "tv-and-radio",
                         sectionName: "Television &amp; radio",
@@ -134,11 +124,29 @@
                     ]
         }
    }
-def read_article(posts)
- sample = posts[:response][:results].sample
-  return sample
+
+ def adding_views(posts)
+     posts[:response][:results].each do | article|
+     article[:views] = 0
+   end
+ end
+
+
+
+ def read_article(posts)
+    sample = posts[:response][:results].sample
+    sample[:views]+=1
+    return sample
+ end
+
+ def display_views(posts)
+    posts[:response][:results].each do |post|
+       puts post[:webTitle]
+       puts "the it gets #{post[:views]} views"
+    end
 end
 
+adding_views (posts)
 result= read_article(posts)
 puts result
-puts "views get #{result[:views]+1}"
+display_views(posts)
